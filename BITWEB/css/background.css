@@ -1,0 +1,35 @@
+.content-container{
+    margin-top:60px;
+}
+[class*="col-md"] {
+    background-color: rgba(255,255,255,0.7);
+}
+.col-md-2{
+    box-shadow: 5px 5px 12px #888888;
+    background-color: rgba(255,255,255,0.7);
+    padding:8px;
+    
+}
+.rightPanel-icon{
+    height:4%;
+    width:auto;
+  }
+.footer{
+        font-size: 80%;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0,0,0,0.9);
+        z-index: 2000;
+        color: #e6e6e6;
+        padding-top:2px;
+        max-height:27px;
+}
+body{
+	background:url("../images/background.jpg") center center no-repeat fixed;
+	 -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+}
