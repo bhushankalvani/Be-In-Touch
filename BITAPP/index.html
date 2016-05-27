@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Be In Touch</title>
+    <meta http-equiv="cache-Control" content="no-cache">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="0">
+    <link rel="shortcut icon" href="img/bitouch.png" type="image/png">
+    <meta name="viewport" content="width=device-width,height=device-height, initial-scale=1, user-scalable=no, user-scalable=0">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <script>
+
+    var storage = window.localStorage;
+    var sessionStore = window.sessionStorage;
+    sessionStore.clear();
+    document.addEventListener("deviceready", onDeviceReady, false);
+    function onDeviceReady()
+    {
+        document.addEventListener("backbutton", function(e)
+        {
+            if (sessionStore.getItem("userId") == null){
+                e.preventDefault();
+            }
+        }, false);
+    }
+    // if (){
+        
+    //     //window.location.href = "index.html";       
+    // }
+        
+
+    function LogInCheck(u_name,_pwd) {
+        var flag=0;
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                //document.getElementById("jsondata").innerHTML = xmlhttp.responseText;
+                var loginArray = new Array();
+            loginArray= JSON.parse(xmlhttp.responseText);
+            
+            if(loginArray['result'] == true){
+                //alert('Success');
+                storage.setItem("userId",loginArray['uname']);
+                //sessionStore.setItem("user",loginArray['uname']);
+                window.location.href = "home.html?uname="+loginArray['uname'];
+            }
+            else{
+                //window.plugins.Toast.showLongBottom("Wrong Username or Password");
+                alert("Wrong Username or Password!");
+            }
+
+            //getJSONval(loginArray);
+            }
+        }
+            xmlhttp.open("GET","http://localhost:8082/BITWEB/app-login.php?id="+u_name+"&pwd="+_pwd,true);
+            xmlhttp.send();
+        }
+    </script>
+
+</head>
+<body>
+
+<!--Login page Content-->
+<div class="container" style="margin-top:50px;">
+    
+<!-- Login form-->
+<form name="LogInForm">
+    <div class="login" style="text-align:center;">
+        <div style="text-align:center;"><img class="main_logo img-responsive center-block" alt="Chania" src="img/bitlogo.gif" class="img-rounded" alt="Cinque Terre" width="504" height="236"></div><br><br>
+            
+            
+        <div class="panel panel-default">
+            <div class="panel-body" style="text-align : center;">
+                <div class="form-group">
+                    <label>Log In Credentials</label>
+                    <input name="id" type="text" class="form-control" id="id" placeholder="User ID" required="true">
+                </div>
+                <div class="form-group">
+                      <input name="pwd" type="password" class="form-control" id="pwd" placeholder="Password" required="true"> 
+                </div> 
+                <div>
+                    <button type="button" class="btn btn-primary" onclick="LogInCheck(document.getElementById('id').value,document.getElementById('pwd').value);">Log In</button>
+                    <!-- <button type="button" onclick="home()">Home</button> --> 
+
+                   
+                </div>
+                
+                <hr style="border-color:#D8D8D8; width:80%;">
+                 <a href="#" style="font-size:75%; border-right:1px solid blue;">Sign Up&nbsp;</a>&nbsp;<a href="#" style="font-size:75%;">Forgotten Password?</a>
+                                
+             </div>
+        </div>   
+
+    </div>
+</form>
+</div>
+ <script>
+    function home(){
+        //storage.setItem("userId","ABC"); 
+        window.location.href = "home.html";
+    }
+</script>
+
+
+<footer>
+        <div style="text-align: center; text-transform: none ;"><p>Copyright @ BeInTouch</p></div>
+</footer>
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.js"></script>
+        <script type="text/javascript" src="js/jquery.js"></script>
+    </body>
+
+</html>
